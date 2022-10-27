@@ -47,7 +47,7 @@ input {
   padding-right: 1.25rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-right: 8px;
-  width: calc(25vw - 28px);
+  width: calc(25vw - 26px);
 }
 
 #add-btn {
@@ -99,6 +99,10 @@ button:active {
   margin-bottom: 16px;
 }
 
+.notesInput {
+    margin: 0px;
+}
+
 @-webkit-keyframes fadeIn {
   from {opacity: 0} 
   to {opacity: 1}
@@ -118,45 +122,50 @@ button:active {
     <div id="output"></div>
 </body>
 <script>
-window.onload = function() {
-    fetch(`https://api.hypixel.net/resources/skyblock/bingo`)
+window.onload = async function() {
+    goals = [{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''}];
+    await fetch(`https://api.hypixel.net/resources/skyblock/bingo`)
     .then(response => response.json())
     .then(data => {
         goals = data.goals;
-        for (i = 0; i < goals.length; i++) {
-            let container = document.createElement('container');
-            container.className = 'container';
-
-            let nameInput = document.createElement('input');
-            nameInput.id = `nameInput${i}`;
-            nameInput.value = goals[i].name;
-            container.append(nameInput);
-
-            let loreInput = document.createElement('input');
-            loreInput.id = `loreInput${i}`;
-            loreInput.value = goals[i].lore;
-            loreInput.value = loreInput.value.replaceAll(/\xA7[a-f0-9]/g, '');
-
-            if(goals[i].lore == undefined) {
-                loreInput.style.backgroundColor = "rgb(229, 70, 70)";
-                loreInput.style.color = "white";
-            }
-
-            container.append(loreInput);
-
-            let methodInput = document.createElement('input');
-            methodInput.id = `methodInput${i}`;
-            methodInput.placeholder = 'Method';
-            container.append(methodInput);
-
-            let notesInput = document.createElement('input');
-            notesInput.id = `notesInput${i}`;
-            notesInput.placeholder = 'Notes';
-            container.append(notesInput);
-
-            document.getElementById('output').append(container);
-        }
     })
+    .catch(function(error) {
+        console.log(error);
+    });
+    for (i = 0; i < 24; i++) {
+        let container = document.createElement('container');
+        container.className = 'container';
+
+        let nameInput = document.createElement('input');
+        nameInput.id = `nameInput${i}`;
+        nameInput.value = goals[i].name;
+        container.append(nameInput);
+
+        let loreInput = document.createElement('input');
+        loreInput.id = `loreInput${i}`;
+        loreInput.value = goals[i].lore;
+        loreInput.value = loreInput.value.replaceAll(/\xA7[a-f0-9]/g, '');
+
+        if(goals[i].lore == undefined) {
+            loreInput.style.backgroundColor = "rgb(229, 70, 70)";
+            loreInput.style.color = "white";
+        }
+
+        container.append(loreInput);
+
+        let methodInput = document.createElement('input');
+        methodInput.id = `methodInput${i}`;
+        methodInput.placeholder = 'Method';
+        container.append(methodInput);
+
+        let notesInput = document.createElement('input');
+        notesInput.className = `notesInput`;
+        notesInput.id = `notesInput${i}`;
+        notesInput.placeholder = 'Notes';
+        container.append(notesInput);
+
+        document.getElementById('output').append(container);
+    }
 }
 
 function generateJSON() {
@@ -174,7 +183,7 @@ function importJSON() {
     let data = JSON.parse(document.getElementById('json-input').value);
     data.value = '';
     document.getElementById('output').innerHTML = '';
-    for (i = 0; i < data.length; i++) {
+    for (i = 0; i < 24; i++) {
         let container = document.createElement('container');
         container.className = 'container';
 
@@ -215,7 +224,7 @@ function importJSON() {
 
 function generateBBCODE() {
     let data = [{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''},{name: '', lore: '', method: '', notes: ''}];
-    for (i = 0; i < goals.length; i++) {
+    for (i = 0; i < 24; i++) {
         data[i].name = document.getElementById(`nameInput${i}`).value;
         data[i].lore = document.getElementById(`loreInput${i}`).value;
         data[i].method = document.getElementById(`methodInput${i}`).value;
@@ -227,34 +236,31 @@ function generateBBCODE() {
     let month = monthNames[d.getMonth()];
     let year = d.getFullYear();
 
-let bbcode = `[HEADING=1][CENTER][a=t]Bingo Guide for ${month} ${year}[/a][/CENTER][/HEADING]<br>
+let bbcode = `
+[HEADING=1][CENTER][a=t]Bingo Guide for ${month} ${year}[/a][/CENTER][/HEADING]<br>
 <br>
-[HEADING=2][CENTER][a=toc]Table of Contents[/a][/CENTER][/HEADING]
-[CENTER]
-[jump=useful]
-Most Useful
-[/jump]
-[HR=25][/HR]
-[jump=goals]
-All Goals
-[/jump][HR=25][/HR]
-[jump=info]
-Difficulty Rankings
-[/jump][HR=25][/HR]
-[jump=order]
-Step-by-Step for the Start
-[/jump][HR=25][/HR]
-[jump=notes]
-Additional Information
-[/jump]
-[/CENTER]
+[HEADING=2][CENTER][a=toc]Table of Contents[/a][/CENTER][/HEADING]<br>
+[CENTER] [jump=useful] Most Useful [/jump]<br>
+[HR=25][/HR]<br>
+ [jump=goals] All Goals [/jump]<br>
+[HR=25][/HR]<br>
+[jump=info] Difficulty [/jump]<br>
+[HR=25][/HR]<br>
+[jump=order] Step-by-Step for the Start [/jump]<br>
+[HR=25][/HR]<br>
+[jump=minions] Recommended Minions [/jump]<br>
+[HR=25][/HR]<br>
+[jump=notes] Additional Information [/jump][/center]<br>
 <br>
-[HEADING=2][CENTER][a=useful]Most Useful[/a][/CENTER][/HEADING]
-[SPOILER="Useful Links"]Bingo Brewers Discord (Free God Splashes) 
-[URL unfurl="false"]https://discord.gg/bdx2qXdqKz[/URL]
-Website version of guide
-[URL unfurl="true"]https://skyblock.bingo/guide[/URL][/SPOILER]
 <br>
+[HEADING=2][CENTER][a=useful]Most Useful[/a][/CENTER][/HEADING]<br>
+[URL="https://discord.gg/kYkWjHy4nJ"]Bingo Brewers Discord (Free God Splashes)[/URL]<br>
+[SPOILER="Bingo Website"]<br>
+[URL unfurl="true"]https://skyblock.bingo[/URL][/SPOILER]<br>
+<br>
+<br>
+Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]<br>
+[url=https://youtu.be/lKfXsBM33Gs]Enter Dwarven with 30 of the same resource[/url]<br>
 [a=goals]<br>
 [HEADING=2][CENTER]All Goals[/CENTER][/HEADING]<br>
 [/a]<br>
@@ -457,20 +463,36 @@ Website version of guide
 [/TABLE]<br>
 <br>
 <br>
-[a=info][HEADING=2][CENTER]Difficulty Rankings[/CENTER][/HEADING][/a]<br>
-[a=order][HEADING=2][CENTER]Step-by-Step for the Start[/CENTER][/HEADING]<br>[/a]<br>
+[a=info][HEADING=2][CENTER]Difficulty[/CENTER][/HEADING][/a]<br>
+[center]Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]<br>
+[/center]
+<br>
+[a=order][HEADING=2][CENTER]Step-by-Step for the Start[/CENTER][/HEADING]<br>
+[/a]<br>
+<br>
+Once bingo opens lobby hop until you can create a profile.<br>
+/hub immediately and go to the designated hub in splashes for a splash.<br>
+Equip your Bingo Pet and begin farming wheat, sell an inventory of wheat for quick coins and buy a sword.<br>
+Go to the Spider's Den and get the 3 easy relics (-142, 82, -340/-201, 83, -352/-341, 122, -252).<br>
+Unlock The End and Dwarven Mines.<br>
+<br>
+[a=minions][HEADING=2][CENTER]Recommended Minions[/CENTER][/HEADING][/a]<br>
+<br>
+[center][b]Recommended Minion Slots: [/b][/center]<br>
+<br>
 [HEADING=2][CENTER][a=notes]Additional Information[/a][/CENTER][/HEADING]<br>
-[a=notes][/a]<br>
-Notes:<br>
+<br>
+Tips/Notes:<br>
 Do your daily commissions until HOTM 3.<br>
+Remember to unlock the Mining Speed perk at HOTM 1.<br>
+Diamond Hoe will give you 1 more farming fortune than a Rookie Hoe when reforged (a Diamond Hoe also wastes less inventory space with seeds).<br>
 Use Better Together (500 mining speed) and Gone With The Wind (300-600 mining speed) to your advantage.<br>
 You can get coins from doing relics in spider den. (Max 310,000)<br>
-Remember you no longer need to unlock carpentry 3 for quick crafting!<br>
 Mine sand to reach mining XII for the Dwarven Mines.<br>
 Put #BingoBrewers after our splashes!<br>
 <br>
-Guide by [USER=4363923]IAlcheMistI[/USER], [USER=3768762]Dredlig[/USER], [USER=1079233]HunterTheHunter[/USER], [USER=3728040]Zeroing[/USER], [USER=3270837]Indigo_Polecat[/USER]<br>
-Website by [USER=2881883]XessDx[/USER]`
+Guide by [USER=3768762]Dredlig[/USER], [USER=1079233]HunterTheHunter[/USER], [USER=3270837]Indigo_Polecat[/USER]<br>
+Website by [USER=2881883]XessDx[/USER]<br>`
 
 document.body.innerHTML = bbcode;
 }
