@@ -50,6 +50,33 @@ input {
   width: calc(25vw - 26px);
 }
 
+textarea {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 30px;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-family: inherit;
+  box-sizing: border-box;
+  border-style: solid;
+  text-decoration: inherit;
+  --tw-bg-opacity: 1;
+  border-color: transparent;
+  border-radius: .5rem;
+  border-width: 1px;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin-right: 8px;
+  width: calc(25vw - 26px);
+}
+
 #add-btn {
   margin-bottom: 16px;
   background-color: white;
@@ -136,12 +163,12 @@ window.onload = async function() {
         let container = document.createElement('container');
         container.className = 'container';
 
-        let nameInput = document.createElement('input');
+        let nameInput = document.createElement('textarea');
         nameInput.id = `nameInput${i}`;
         nameInput.value = goals[i].name;
         container.append(nameInput);
 
-        let loreInput = document.createElement('input');
+        let loreInput = document.createElement('textarea');
         loreInput.id = `loreInput${i}`;
         loreInput.value = goals[i].lore;
         loreInput.value = loreInput.value.replaceAll(/\xA7[a-f0-9]/g, '');
@@ -153,12 +180,12 @@ window.onload = async function() {
 
         container.append(loreInput);
 
-        let methodInput = document.createElement('input');
+        let methodInput = document.createElement('textarea');
         methodInput.id = `methodInput${i}`;
         methodInput.placeholder = 'Method';
         container.append(methodInput);
 
-        let notesInput = document.createElement('input');
+        let notesInput = document.createElement('textarea');
         notesInput.className = `notesInput`;
         notesInput.id = `notesInput${i}`;
         notesInput.placeholder = 'Notes';
@@ -187,12 +214,12 @@ function importJSON() {
         let container = document.createElement('container');
         container.className = 'container';
 
-        let nameInput = document.createElement('input');
+        let nameInput = document.createElement('textarea');
         nameInput.id = `nameInput${i}`;
         nameInput.value = data[i].name;
         container.append(nameInput);
 
-        let loreInput = document.createElement('input');
+        let loreInput = document.createElement('textarea');
         loreInput.id = `loreInput${i}`;
         loreInput.value = data[i].lore;
         loreInput.value = loreInput.value.replaceAll(/\xA7[a-f0-9]/g, '');
@@ -202,7 +229,7 @@ function importJSON() {
         }
         container.append(loreInput);
 
-        let methodInput = document.createElement('input');
+        let methodInput = document.createElement('textarea');
         methodInput.id = `methodInput${i}`;
         methodInput.value = data[i].method;
         if(data[i].method == '') {
@@ -210,7 +237,7 @@ function importJSON() {
         }
         container.append(methodInput);
 
-        let notesInput = document.createElement('input');
+        let notesInput = document.createElement('textarea');
         notesInput.id = `notesInput${i}`;
         notesInput.value = data[i].notes;
         if(data[i].notes == '') {
