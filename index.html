@@ -139,6 +139,13 @@ button:active {
   from {opacity: 0} 
   to {opacity: 1}
 }
+
+.btnOutput {
+    display: none;
+    width: 100%;
+    height: 50rem;
+    white-space: pre-wrap;
+}
 </style>
 <body>
     <input id="json-input" placeholder="JSON String">
@@ -147,6 +154,7 @@ button:active {
     <button id="add-btn" onclick="generateBBCODE();" style="float: right; margin-right: 16px; background-color: rgb(70, 120, 229); color: white">Generate BBCode</button>
 
     <div id="output"></div>
+    <textarea id="btnOutput" class="btnOutput"></textarea>
 </body>
 <script>
 window.onload = async function() {
@@ -203,7 +211,7 @@ function generateJSON() {
         data[i].method = document.getElementById(`methodInput${i}`).value;
         data[i].notes = document.getElementById(`notesInput${i}`).value;
     }
-    document.body.innerHTML = JSON.stringify(data);
+    document.getElementById("btnOutput").value = JSON.stringify(data);
 }
 
 function importJSON() {
@@ -260,268 +268,276 @@ function generateBBCODE() {
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const d = new Date();
-    let month = monthNames[d.getMonth()];
+    let month;
+    console.log(d.getMonth());
     let year = d.getFullYear();
+    if (d.getMonth() == 11) {
+        year++;
+        month = 'January';
+    } else {
+        month = monthNames[d.getMonth() + 1];
+    }
 
 let bbcode = `
-[HEADING=1][CENTER][a=t]Bingo Guide for ${month} ${year}[/a][/CENTER][/HEADING]<br>
-<br>
-[HEADING=2][CENTER][a=toc]Table of Contents[/a][/CENTER][/HEADING]<br>
-[CENTER] [jump=useful] Most Useful [/jump]<br>
-[HR=25][/HR]<br>
- [jump=goals] All Goals [/jump]<br>
-[HR=25][/HR]<br>
-[jump=info] Difficulty [/jump]<br>
-[HR=25][/HR]<br>
-[jump=order] Step-by-Step for the Start [/jump]<br>
-[HR=25][/HR]<br>
-[jump=minions] Recommended Minions [/jump]<br>
-[HR=25][/HR]<br>
-[jump=notes] Additional Information [/jump][/center]<br>
-<br>
-<br>
-[HEADING=2][CENTER][a=useful]Most Useful[/a][/CENTER][/HEADING]<br>
-[URL="https://discord.gg/kYkWjHy4nJ"]Bingo Brewers Discord (Free God Splashes)[/URL]<br>
-[SPOILER="Bingo Website"]<br>
-[URL unfurl="true"]https://skyblock.bingo[/URL][/SPOILER]<br>
-<br>
-<br>
-Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]<br>
-[url=https://youtu.be/lKfXsBM33Gs]Enter Dwarven with 30 of the same resource[/url]<br>
-[a=goals]<br>
-[HEADING=2][CENTER]All Goals[/CENTER][/HEADING]<br>
-[/a]<br>
-[TABLE]<br>
-[TR]<br>
-[TH][CENTER]Row #1[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Description[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Method[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Notes[/CENTER][/TH]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[0].name}`)}]${data[0].name}[/a][/b][/TD]<br>
-[TD]${data[0].lore}[/TD]<br>
-[TD]${data[0].method}[/TD]<br>
-[TD]${data[0].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[1].name}`)}]${data[1].name}[/a][/b][/TD]<br>
-[TD]${data[1].lore}[/TD]<br>
-[TD]${data[1].method}[/TD]<br>
-[TD]${data[1].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[2].name}`)}]${data[2].name}[/a][/b][/TD]<br>
-[TD]${data[2].lore}[/TD]<br>
-[TD]${data[2].method}[/TD]<br>
-[TD]${data[2].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[3].name}`)}]${data[3].name}[/a][/b][/TD]<br>
-[TD]${data[3].lore}[/TD]<br>
-[TD]${data[3].method}[/TD]<br>
-[TD]${data[3].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[4].name}`)}]${data[4].name}[/a][/b][/TD]<br>
-[TD]${data[4].lore}[/TD]<br>
-[TD]${data[4].method}[/TD]<br>
-[TD]${data[4].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TH][CENTER]Row #2[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Description[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Method[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Notes[/CENTER][/TH]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[5].name}`)}]${data[5].name}[/a][/b][/TD]<br>
-[TD]${data[5].lore}[/TD]<br>
-[TD]${data[5].method}[/TD]<br>
-[TD]${data[5].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[6].name}`)}]${data[6].name}[/a][/b][/TD]<br>
-[TD]${data[6].lore}[/TD]<br>
-[TD]${data[6].method}[/TD]<br>
-[TD]${data[6].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[7].name}`)}]${data[7].name}[/a][/b][/TD]<br>
-[TD]${data[7].lore}[/TD]<br>
-[TD]${data[7].method}[/TD]<br>
-[TD]${data[7].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[8].name}`)}]${data[8].name}[/a][/b][/TD]<br>
-[TD]${data[8].lore}[/TD]<br>
-[TD]${data[8].method}[/TD]<br>
-[TD]${data[8].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[9].name}`)}]${data[9].name}[/a][/b][/TD]<br>
-[TD]${data[9].lore}[/TD]<br>
-[TD]${data[9].method}[/TD]<br>
-[TD]${data[9].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TH][CENTER]Row #3[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Description[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Method[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Notes[/CENTER][/TH]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[10].name}`)}]${data[10].name}[/a][/b][/TD]<br>
-[TD]${data[10].lore}[/TD]<br>
-[TD]${data[10].method}[/TD]<br>
-[TD]${data[10].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[11].name}`)}]${data[11].name}[/a][/b][/TD]<br>
-[TD]${data[11].lore}[/TD]<br>
-[TD]${data[11].method}[/TD]<br>
-[TD]${data[11].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[12].name}`)}]${data[12].name}[/a][/b][/TD]<br>
-[TD]${data[12].lore}[/TD]<br>
-[TD]${data[12].method}[/TD]<br>
-[TD]${data[12].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[13].name}`)}]${data[13].name}[/a][/b][/TD]<br>
-[TD]${data[13].lore}[/TD]<br>
-[TD]${data[13].method}[/TD]<br>
-[TD]${data[13].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[14].name}`)}]${data[14].name}[/a][/b][/TD]<br>
-[TD]${data[14].lore}[/TD]<br>
-[TD]${data[14].method}[/TD]<br>
-[TD]${data[14].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TH][CENTER]Row #4[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Description[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Method[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Notes[/CENTER][/TH]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[15].name}`)}]${data[15].name}[/a][/b][/TD]<br>
-[TD]${data[15].lore}[/TD]<br>
-[TD]${data[15].method}[/TD]<br>
-[TD]${data[15].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[16].name}`)}]${data[16].name}[/a][/b][/TD]<br>
-[TD]${data[16].lore}[/TD]<br>
-[TD]${data[16].method}[/TD]<br>
-[TD]${data[16].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[17].name}`)}]${data[17].name}[/a][/b][/TD]<br>
-[TD]${data[17].lore}[/TD]<br>
-[TD]${data[17].method}[/TD]<br>
-[TD]${data[17].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[18].name}`)}]${data[18].name}[/a][/b][/TD]<br>
-[TD]${data[18].lore}[/TD]<br>
-[TD]${data[18].method}[/TD]<br>
-[TD]${data[18].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[19].name}`)}]${data[19].name}[/a][/b][/TD]<br>
-[TD]${data[19].lore}[/TD]<br>
-[TD]${data[19].method}[/TD]<br>
-[TD]${data[19].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TH][CENTER]Row #5[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Description[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Method[/CENTER][/TH]<br>
-<br>
-[TH][CENTER]Notes[/CENTER][/TH]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[20].name}`)}]${data[20].name}[/a][/b][/TD]<br>
-[TD]${data[20].lore}[/TD]<br>
-[TD]${data[20].method}[/TD]<br>
-[TD]${data[20].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[21].name}`)}]${data[21].name}[/a][/b][/TD]<br>
-[TD]${data[21].lore}[/TD]<br>
-[TD]${data[21].method}[/TD]<br>
-[TD]${data[21].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[22].name}`)}]${data[22].name}[/a][/b][/TD]<br>
-[TD]${data[22].lore}[/TD]<br>
-[TD]${data[22].method}[/TD]<br>
-[TD]${data[22].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[23].name}`)}]${data[23].name}[/a][/b][/TD]<br>
-[TD]${data[23].lore}[/TD]<br>
-[TD]${data[23].method}[/TD]<br>
-[TD]${data[23].notes}[/TD]<br>
-[/TR]<br>
-[TR]<br>
-[TD][b][a=${getName(`${data[24].name}`)}]${data[24].name}[/a][/b][/TD]<br>
-[TD]${data[24].lore}[/TD]<br>
-[TD]${data[24].method}[/TD]<br>
-[TD]${data[24].notes}[/TD]<br>
-[/TR]<br>
-[/TABLE]<br>
-<br>
-<br>
-[a=info][HEADING=2][CENTER]Difficulty[/CENTER][/HEADING][/a]<br>
-[center]Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]<br>
-[/center]
-<br>
-[a=order][HEADING=2][CENTER]Step-by-Step for the Start[/CENTER][/HEADING]<br>
-[/a]<br>
-<br>
-Once bingo opens lobby hop until you can create a profile.<br>
-/hub immediately and go to the designated hub in splashes for a splash.<br>
-Equip your Bingo Pet and begin farming wheat, sell an inventory of wheat for quick coins and buy a sword.<br>
-Go to the Spider's Den and get the 3 easy relics (-142, 82, -340/-201, 83, -352/-341, 122, -252).<br>
-Unlock The End and Dwarven Mines.<br>
-<br>
-[a=minions][HEADING=2][CENTER]Recommended Minions[/CENTER][/HEADING][/a]<br>
-<br>
-[center][b]Recommended Minion Slots: [/b][/center]<br>
-<br>
-[HEADING=2][CENTER][a=notes]Additional Information[/a][/CENTER][/HEADING]<br>
-<br>
-Tips/Notes:<br>
-Do your daily commissions until HOTM 3.<br>
-Remember to unlock the Mining Speed perk at HOTM 1.<br>
-Diamond Hoe will give you 1 more farming fortune than a Rookie Hoe when reforged (a Diamond Hoe also wastes less inventory space with seeds).<br>
-Use Better Together (500 mining speed) and Gone With The Wind (300-600 mining speed) to your advantage.<br>
-You can get coins from doing relics in spider den. (Max 310,000)<br>
-Mine sand to reach mining XII for the Dwarven Mines.<br>
-Put #BingoBrewers after our splashes!<br>
-<br>
-Guide by [USER=3768762]Dredlig[/USER], [USER=1079233]HunterTheHunter[/USER], [USER=3270837]Indigo_Polecat[/USER]<br>
-Website by [USER=2881883]XessDx[/USER]<br>`
+[HEADING=1][CENTER][a=t]Bingo Guide for ${month} ${year}[/a][/CENTER][/HEADING]
 
-document.body.innerHTML = bbcode;
+[HEADING=2][CENTER][a=toc]Table of Contents[/a][/CENTER][/HEADING]
+[CENTER] [jump=useful] Most Useful [/jump]
+[HR=25][/HR]
+ [jump=goals] All Goals [/jump]
+[HR=25][/HR]
+[jump=info] Difficulty [/jump]
+[HR=25][/HR]
+[jump=order] Step-by-Step for the Start [/jump]
+[HR=25][/HR]
+[jump=minions] Recommended Minions [/jump]
+[HR=25][/HR]
+[jump=notes] Additional Information [/jump][/center]
+
+
+[HEADING=2][CENTER][a=useful]Most Useful[/a][/CENTER][/HEADING]
+[URL="https://discord.gg/kYkWjHy4nJ"]Bingo Brewers Discord (Free God Splashes)[/URL]
+[SPOILER="Bingo Website"]
+[URL unfurl="true"]https://skyblock.bingo[/URL][/SPOILER]
+
+
+Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]
+
+[a=goals]
+[HEADING=2][CENTER]All Goals[/CENTER][/HEADING]
+[/a]
+[TABLE]
+[TR]
+[TH][CENTER]Row #1[/CENTER][/TH]
+
+[TH][CENTER]Description[/CENTER][/TH]
+
+[TH][CENTER]Method[/CENTER][/TH]
+
+[TH][CENTER]Notes[/CENTER][/TH]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[0].name}`)}]${data[0].name}[/a][/b][/TD]
+[TD]${data[0].lore}[/TD]
+[TD]${data[0].method}[/TD]
+[TD]${data[0].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[1].name}`)}]${data[1].name}[/a][/b][/TD]
+[TD]${data[1].lore}[/TD]
+[TD]${data[1].method}[/TD]
+[TD]${data[1].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[2].name}`)}]${data[2].name}[/a][/b][/TD]
+[TD]${data[2].lore}[/TD]
+[TD]${data[2].method}[/TD]
+[TD]${data[2].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[3].name}`)}]${data[3].name}[/a][/b][/TD]
+[TD]${data[3].lore}[/TD]
+[TD]${data[3].method}[/TD]
+[TD]${data[3].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[4].name}`)}]${data[4].name}[/a][/b][/TD]
+[TD]${data[4].lore}[/TD]
+[TD]${data[4].method}[/TD]
+[TD]${data[4].notes}[/TD]
+[/TR]
+[TR]
+[TH][CENTER]Row #2[/CENTER][/TH]
+
+[TH][CENTER]Description[/CENTER][/TH]
+
+[TH][CENTER]Method[/CENTER][/TH]
+
+[TH][CENTER]Notes[/CENTER][/TH]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[5].name}`)}]${data[5].name}[/a][/b][/TD]
+[TD]${data[5].lore}[/TD]
+[TD]${data[5].method}[/TD]
+[TD]${data[5].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[6].name}`)}]${data[6].name}[/a][/b][/TD]
+[TD]${data[6].lore}[/TD]
+[TD]${data[6].method}[/TD]
+[TD]${data[6].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[7].name}`)}]${data[7].name}[/a][/b][/TD]
+[TD]${data[7].lore}[/TD]
+[TD]${data[7].method}[/TD]
+[TD]${data[7].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[8].name}`)}]${data[8].name}[/a][/b][/TD]
+[TD]${data[8].lore}[/TD]
+[TD]${data[8].method}[/TD]
+[TD]${data[8].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[9].name}`)}]${data[9].name}[/a][/b][/TD]
+[TD]${data[9].lore}[/TD]
+[TD]${data[9].method}[/TD]
+[TD]${data[9].notes}[/TD]
+[/TR]
+[TR]
+[TH][CENTER]Row #3[/CENTER][/TH]
+
+[TH][CENTER]Description[/CENTER][/TH]
+
+[TH][CENTER]Method[/CENTER][/TH]
+
+[TH][CENTER]Notes[/CENTER][/TH]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[10].name}`)}]${data[10].name}[/a][/b][/TD]
+[TD]${data[10].lore}[/TD]
+[TD]${data[10].method}[/TD]
+[TD]${data[10].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[11].name}`)}]${data[11].name}[/a][/b][/TD]
+[TD]${data[11].lore}[/TD]
+[TD]${data[11].method}[/TD]
+[TD]${data[11].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[12].name}`)}]${data[12].name}[/a][/b][/TD]
+[TD]${data[12].lore}[/TD]
+[TD]${data[12].method}[/TD]
+[TD]${data[12].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[13].name}`)}]${data[13].name}[/a][/b][/TD]
+[TD]${data[13].lore}[/TD]
+[TD]${data[13].method}[/TD]
+[TD]${data[13].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[14].name}`)}]${data[14].name}[/a][/b][/TD]
+[TD]${data[14].lore}[/TD]
+[TD]${data[14].method}[/TD]
+[TD]${data[14].notes}[/TD]
+[/TR]
+[TR]
+[TH][CENTER]Row #4[/CENTER][/TH]
+
+[TH][CENTER]Description[/CENTER][/TH]
+
+[TH][CENTER]Method[/CENTER][/TH]
+
+[TH][CENTER]Notes[/CENTER][/TH]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[15].name}`)}]${data[15].name}[/a][/b][/TD]
+[TD]${data[15].lore}[/TD]
+[TD]${data[15].method}[/TD]
+[TD]${data[15].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[16].name}`)}]${data[16].name}[/a][/b][/TD]
+[TD]${data[16].lore}[/TD]
+[TD]${data[16].method}[/TD]
+[TD]${data[16].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[17].name}`)}]${data[17].name}[/a][/b][/TD]
+[TD]${data[17].lore}[/TD]
+[TD]${data[17].method}[/TD]
+[TD]${data[17].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[18].name}`)}]${data[18].name}[/a][/b][/TD]
+[TD]${data[18].lore}[/TD]
+[TD]${data[18].method}[/TD]
+[TD]${data[18].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[19].name}`)}]${data[19].name}[/a][/b][/TD]
+[TD]${data[19].lore}[/TD]
+[TD]${data[19].method}[/TD]
+[TD]${data[19].notes}[/TD]
+[/TR]
+[TR]
+[TH][CENTER]Row #5[/CENTER][/TH]
+
+[TH][CENTER]Description[/CENTER][/TH]
+
+[TH][CENTER]Method[/CENTER][/TH]
+
+[TH][CENTER]Notes[/CENTER][/TH]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[20].name}`)}]${data[20].name}[/a][/b][/TD]
+[TD]${data[20].lore}[/TD]
+[TD]${data[20].method}[/TD]
+[TD]${data[20].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[21].name}`)}]${data[21].name}[/a][/b][/TD]
+[TD]${data[21].lore}[/TD]
+[TD]${data[21].method}[/TD]
+[TD]${data[21].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[22].name}`)}]${data[22].name}[/a][/b][/TD]
+[TD]${data[22].lore}[/TD]
+[TD]${data[22].method}[/TD]
+[TD]${data[22].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[23].name}`)}]${data[23].name}[/a][/b][/TD]
+[TD]${data[23].lore}[/TD]
+[TD]${data[23].method}[/TD]
+[TD]${data[23].notes}[/TD]
+[/TR]
+[TR]
+[TD][b][a=${getName(`${data[24].name}`)}]${data[24].name}[/a][/b][/TD]
+[TD]${data[24].lore}[/TD]
+[TD]${data[24].method}[/TD]
+[TD]${data[24].notes}[/TD]
+[/TR]
+[/TABLE]
+
+
+[a=info][HEADING=2][CENTER]Difficulty[/CENTER][/HEADING][/a]
+[center]Overall Bingo Difficulty: [b][COLOR=rgb(65, 168, 95)]Easy[/COLOR][COLOR=rgb(184, 49, 47)]Hard[/COLOR][COLOR=rgb(0, 168, 133)]Medium[/COLOR][/b]
+[/center]
+
+[a=order][HEADING=2][CENTER]Step-by-Step for the Start[/CENTER][/HEADING]
+[/a]
+
+Once bingo opens lobby hop until you can create a profile.
+/hub immediately and go to the designated hub in splashes for a splash.
+Equip your Bingo Pet and begin farming wheat, sell an inventory of wheat for quick coins and buy a sword.
+Go to the Spider's Den and get the 3 easy relics (-142, 82, -340/-201, 83, -352/-341, 122, -252).
+Unlock The End and Dwarven Mines.
+
+[a=minions][HEADING=2][CENTER]Recommended Minions[/CENTER][/HEADING][/a]
+
+[center][b]Recommended Minion Slots: [/b][/center]
+
+[HEADING=2][CENTER][a=notes]Additional Information[/a][/CENTER][/HEADING]
+
+Tips/Notes:
+Do your daily commissions until HOTM 3.
+Remember to unlock the Mining Speed perk at HOTM 1.
+Use Better Together (500 mining speed) and Gone With The Wind (300-600 mining speed) to your advantage.
+You can get coins from doing relics in spider den. (Max 310,000)
+Mine sand to reach mining XII for the Dwarven Mines.
+Put #BingoBrewers after our splashes!
+
+Guide by [USER=3768762]Dredlig[/USER], [USER=1079233]HunterTheHunter[/USER], [USER=3270837]Indigo_Polecat[/USER]
+Website by [USER=2881883]XessDx[/USER]`
+
+
+document.getElementById('btnOutput').value = bbcode;
+document.getElementById('btnOutput').style.display = 'block';
 }
 
 function getName(str) {
